@@ -1,5 +1,6 @@
 """  This is my own personal collection of utilities and functions.  Hopefully I'll get better
-	 at reusing code if I commit to maintaining this at least.
+	 at reusing code if I commit to maintaining this at least.  As the collection grows, 
+	 bits of code with similar functionality will be broken out into separate modules.
 
 	 Tests are located in util_tests.py.
 
@@ -61,7 +62,7 @@ def gradient_descent( F, x):
 		given an initial guess at the location of the min.
 
 	"""
-	# TODO: Consider using a line-search to pick the right 'epsilon' for each step.
+	
 	epsilon = 0.1		# Arbitrary atm.  Smaller numbers seem to do better though.
 	x_list = [x]
 	for index in range(0,100):
@@ -79,7 +80,30 @@ def gradient_descent( F, x):
 			print('Gradient descent failed to converge in 100 steps')
 
 	return F( x), x	
+
+
+def newton1D( F, epsilon):
+	pass		
+
+def deriv1D( F, x):
+	#	h = 0.01
+	
+	h_list = [ (0.5)**n for n in range(1,10)]
+	
+	deriv_list = []
+	
+	for h in h_list:
+		deriv = ( F( x + h) - F(x))  
+		deriv = deriv/ h
 		
+		deriv_list.append(deriv)
+	
+		if h < 0.5:	
+			if isConverged( deriv_list[-2], deriv_list[-1]):
+				break
+	
+	return deriv
+
 
 
 #TODO:  Try to make this function 'do one thing'.  Maybe break the convergence loop out?
@@ -118,40 +142,6 @@ def gradient( F, x):
 			
 	return grad
 
-
-def newton_raphson( F, x_guess):
-	""" Computes the miniumum of a function 'F' and its location using the Newton-Raphson 
-		iteration.
-		
-		f is a scalar function of a vector, x.
-		x_guess is an initial guess at the location of optim
-	"""
-	x = x_guess
-
-#	for index in range(0,20):
-#		update = - np.dot( np.linalg.inv( getHessian( F, x)), gradient( F, x)) 
-#		x_old = x
-#		
-#		x = x + update
-#		
-#		if isConverged( x, x_old):
-#			break
-	
-	return F(x), x
-
-
-
-def getHessian( F, x):
-	""" Returns hessian of a function F evaluated at the point x. """
-	
-	def G( x):
-		""" Returns a vector to represent the gradient of F.  """	
-		return gradient( F, x)
-	dim = len(x)
-
-	H = np.zeros((dim, dim))
-	# I'm sort of spinning my wheels trying to get an `H = grad( grad(F).transpose)` type
-	# algorithm working.   
 
 
 

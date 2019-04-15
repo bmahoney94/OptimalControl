@@ -21,6 +21,7 @@ def gradient_test():
 	print( 'The gradient of F at ' + str(x) + ' is ' + str(grad) )
 	print()	
 
+
 def gradient_descent_test():
 	""" This tests the basic functionality of the gradient_descent function. """
 	#TODO: This function's code is being copied elsewhere.  Consider breaking it out as a common
@@ -43,51 +44,29 @@ def gradient_descent_test():
 	print()
 
 
-def newton_raphson_test():
-	""" This tests the basic functionality of the newton_raphson function. """
-	#TODO: This function's code is being copied elsewhere.  Consider breaking it out as a common
-	#		test 'fixture' of sorts. 
-	def F( x): 
-		""" Takes two scalar inputs (x, y) and returns a scalar output.
-			
-			The min of the function F(x, y) = (x-2)**2 + (y+3)**2 + 5 occurs at the location of
-			its vertex: (x,y) = (2, -3).
-		"""
-		F = (x[0]-2)**2 + (x[1]+3)**2 + 5
-		return F
 
-	initial_guess = np.array([ 0, 0])
+
+def newton1D_Test():
+	pass
+
+
+def deriv1D_test():
+	def F(x):
+		return x**2 + 5*x + 1
+
+	print('Testing the deriv1D function.')
 	
-	print('Testing the newton_raphson function')	
-	value, location = newton_raphson( F, initial_guess)
-	print('Computed min of ' + str(value) + ' at ' + str(location))	
-	print('Actual min of ' + str(5) + ' at ' + str((2, -3)) )
-	print()
-
-
-
-def getHessian_test():
-	def F( x): 
-		""" Takes two scalar inputs (x, y) and returns a scalar output.
-			
-			The min of the function F(x, y) = (x-2)**3 + (y+3)**3 + 5 occurs at the location of
-			its vertex: (x,y) = (2, -3).
-		"""
-
-		# NOTE: This is different from elsewhere!  This function is cubic!
-		F = (x[0]-2)*3 + (x[1]+3)**3 + 5
-		return F
-
-	def hess( x, y):
-		return np.array([ [6 * (x-2), 0], [0, 6 * (y+3)]])
+	x0 = 0.5
 	
-	
-	print('Testing the getHessian function')
-	x = [0, 0]
-	hessian = getHessian( F, x)	
-	 
-	print('Computed Hessian at (0, 0): ' + str(hessian))
-	print('Analytical Hessian at (0, 0): ' + str( hess( x[0], x[1])))
+	deriv = deriv1D( F, x0)
+	deriv_analytical = 2 * x0 + 5
+
+	print('Computed derivative at x=' + str(x0) + ' is ' + str(deriv))
+	print('Analytical derivative is ' + str(deriv_analytical))
+
+	if abs(deriv - deriv_analytical) > 0.5:
+		print('Test failed!')	
+
 
 
 def quad_test():
@@ -98,7 +77,6 @@ def quad_test():
 	print(Quad( f, t))
 	
 
-
 ##  IF: main ##
 
 if  __name__ == '__main__':
@@ -107,6 +85,4 @@ if  __name__ == '__main__':
 	quad_test()
 	gradient_test()
 	gradient_descent_test()
-	newton_raphson_test()
-	getHessian_test();
-
+	deriv1D_test()
