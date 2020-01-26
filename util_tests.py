@@ -3,6 +3,9 @@
 
 from util import *
 
+
+
+# TODO: Incorporate the unittest module and start making assertions
 ## Tests ###
 
 def gradient_test():
@@ -46,9 +49,27 @@ def gradient_descent_test():
 
 
 
-def newton1D_Test():
-	pass
+def newton1D_test():
 
+	
+	def F(x):
+		return x**2 + 5*x + 1
+
+	print('Testing the newton1D function.')
+
+	x0 = 15
+	
+	x, optima = newton1D( F, x0)
+
+	x_analytical, f_analytical = -2.5, F(-2.5)
+	print('Local optima at ' + str(x_analytical) + ' of ' + str(f_analytical))
+	print('Newton1D returns: ' + str( (x, optima) ) )	
+
+	if abs( optima - f_analytical) > 0.01:
+		print('Test failed!')
+	
+		
+	print()
 
 def deriv1D_test():
 	def F(x):
@@ -66,6 +87,8 @@ def deriv1D_test():
 
 	if abs(deriv - deriv_analytical) > 0.5:
 		print('Test failed!')	
+	
+	print()
 
 
 
@@ -86,3 +109,4 @@ if  __name__ == '__main__':
 	gradient_test()
 	gradient_descent_test()
 	deriv1D_test()
+	newton1D_test()
