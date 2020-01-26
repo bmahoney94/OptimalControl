@@ -7,16 +7,9 @@
 """
 
 import numpy as np
-import matplotlib.pyplot as pl
-from mpl_toolkits.mplot3d import Axes3D
+# import matplotlib.pyplot as plt
+# from mpl_toolkits.mplot3d import Axes3D
 from pprint import pprint
-
-
-# TODO LIST
-# Write a matlab-esque surface plotting function to help with prototyping things.
-# Write a Newton-Raphson optimization function to make the optimization a little easier.
-#
-# Consider profiling some of these functions.  There may be a speedup to be found.
 
 
 # THIS FUNCTION HAS TOO MANY ARGUMENTS!
@@ -63,15 +56,23 @@ def gradient_descent( F, x):
 
 	"""
 	
-	epsilon = 0.1		# Arbitrary atm.  Smaller numbers seem to do better though.
+	epsilon = 0.5		# Arbitrary atm. Try to compute it somehow! 
 	x_list = [x]
+
+	
 	for index in range(0,100):
 		grad = gradient( F, x)
-		largest_component_error = np.linalg.norm( x, 1)
-		 
+		
+	
+		# Function of epsilon.  To be passed to newton1D.	
+		G =	lambda eps: F( x - eps * gradient( F, x) )
+
+		print('blah:' + str( G( 0)) )
+	
+
 		x = x - epsilon * grad   
 		x_list.append(x)
-
+		
 		if isConverged( x_list[-2], x_list[-1]):
 			break
 
@@ -82,8 +83,40 @@ def gradient_descent( F, x):
 	return F( x), x	
 
 
-def newton1D( F, epsilon):
-	pass		
+def newton1D( F, x):
+	"""  Given a function F and an initial guess x, this function will find the
+			local optima of the function.
+
+		 This is a Newton-Raphson optimization procedure, not a root finder!
+	"""
+	
+	#TODO:  Consider breaking this function out on its own.
+	def get_dxx( F, x):
+		
+		h_list = [ (0.5)**n for n in range(0,10) ] 
+
+		result_list = []
+		for h in h_list:
+			result = (deriv1D( F, x + h) - deriv1D( F, x)) / h
+			
+			result_list.append(result)
+
+			if h < 0.5 and isConverged( result_list[-2], result_list[-1]):
+				break
+
+		return result		
+		
+	
+	x_list = [x]
+	for iteration in range( 0, 10):	
+		x = x - deriv1D( F, x) / get_dxx( F, x)	
+		
+		x_list.append(x)
+
+		if isConverged( x_list[-2], x_list[-1]):
+			break
+
+	return x, F(x)
 
 def deriv1D( F, x):
 	#	h = 0.01
@@ -106,7 +139,7 @@ def deriv1D( F, x):
 
 
 
-#TODO:  Try to make this function 'do one thing'.  Maybe break the convergence loop out?
+#TODO:  Try to make this function 'do one thing'.  
 def gradient( F, x):
 	""" Computes the gradient of a scalar function F at a point x. 
 	
