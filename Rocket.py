@@ -18,6 +18,11 @@ import math
 #
 # 
 
+
+
+# Note: This is becoming a god class.
+# Get some tests in place.  Then break some stuff apart into separate classes.
+
 class RocketTrajectory:
 	""" Defines a model for a rocket's flight dynamics.
 		
