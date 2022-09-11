@@ -82,6 +82,21 @@ def gradient_descent( F, x):
 
 	return F( x), x	
 
+#TODO:  Consider breaking this function out on its own.
+def get_dxx( F, x):
+		
+	h_list = [ (0.5)**n for n in range(0,10) ] 
+
+	result_list = []
+	for h in h_list:
+		result = (deriv1D( F, x + h) - deriv1D( F, x)) / h
+		
+		result_list.append(result)
+
+		if h < 0.5 and isConverged( result_list[-2], result_list[-1]):
+			break
+
+	return result		
 
 def newton1D( F, x):
 	"""  Given a function F and an initial guess x, this function will find the
@@ -90,21 +105,6 @@ def newton1D( F, x):
 		 This is a Newton-Raphson optimization procedure, not a root finder!
 	"""
 	
-	#TODO:  Consider breaking this function out on its own.
-	def get_dxx( F, x):
-		
-		h_list = [ (0.5)**n for n in range(0,10) ] 
-
-		result_list = []
-		for h in h_list:
-			result = (deriv1D( F, x + h) - deriv1D( F, x)) / h
-			
-			result_list.append(result)
-
-			if h < 0.5 and isConverged( result_list[-2], result_list[-1]):
-				break
-
-		return result		
 		
 	
 	x_list = [x]
