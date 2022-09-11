@@ -153,7 +153,7 @@ def gradient( F, x):
 	
 	# Refine the gradient to force it to converge
 	for index in range(1,1000):
-		stepsize = 0.5**index
+		stepsize = 0.1**index
 		# print('Increment: ', stepsize)
 
 		grad = np.zeros(x.shape)
@@ -172,7 +172,7 @@ def gradient( F, x):
 
 					
 		grad_estimate_list.append(grad)	
-			
+	
 	return grad
 
 

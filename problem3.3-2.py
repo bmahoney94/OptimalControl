@@ -55,7 +55,7 @@ cost, location = gradient_descent( generate_cost, alpha_vec)
 print('Final Cost: ', cost)
 print('Parameters: ', location)
 
-
+rocketTrajectory.plot()
 
 
 

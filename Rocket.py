@@ -6,6 +6,8 @@
 import numpy as np
 from util import *
 import math
+import matplotlib.pyplot as plt
+
 
 # TODO LIST
 # Write some bloody tests for this module!  It makes things easier!
@@ -113,6 +115,11 @@ class RocketTrajectory:
 		return J
 
 			
-	def PlotTrajectory():
-		pass
+	def plot( self):
+#		fig, ax = plt.subplot(31)
 
+		plt.plot( self.time, self.x[0])
+#		plt.plot( self.time, self.x[1])
+#		plt.plot( self.time, self.x[2])
+		
+		plt.show()
