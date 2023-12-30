@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 
 
-from util import *
-
-
+#from util import *
+import numpy as np
+from OCPUtil import *
 
 # TODO: Incorporate the unittest module and start making assertions
 ## Tests ###

@@ -20,30 +20,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pprint import pprint
 
-#####  Runge-Kutta 4th order
-
-
-def RK4(RHS, t, delta_t, x, u):
-	""" RK4( RHS, time, delta_t, x1, u)
-		
-		RHS: Function that returns a column vector
-		t: scalar time input
-		delta_t: Scalar time step length
-		x: Column vector of present state
-		u: column vector of present control state
-
-		Implements a 4th order Runge-Kutta integration scheme to propagate the state from
-		time = t1 to time = t2.
-
-		The control state is held constant throughout the interval(zoh).
-	"""
-	k1 = delta_t * RHS( t, x, u)
-	k2 = delta_t * RHS( t + delta_t/2, x + k1/2, u)
-	k3 = delta_t * RHS( t + delta_t/2, x + k2/2, u)
-	k4 = delta_t * RHS( t + delta_t, x + k3, u)
-	result = x + (1/6) * (k1 + 2*k2 + 2*k3 + k4)
-	
-	return result
+from OCPUtil import *
 
 def RHS( t, x, u):
 	F = np.array([[-0.5, 1],[0,-0.7]])		# System dynamics
