@@ -22,20 +22,11 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-from util import *
+from OCPutil import *
 from Rocket import *
 
-		
 def alpha( alpha0, alpha1):
 	return alpha0 + alpha1 * t
-
-tf = 10				# seconds
-dt = 0.1			# seconds
-t = np.arange(0, tf, dt)
-
-
-# Trajectory Optimization using Gradient Descent 
-
 
 def generate_cost( alpha_vec):
 	rocketTrajectory.setAlpha( alpha( alpha_vec[0], alpha_vec[1]) )
@@ -44,18 +35,26 @@ def generate_cost( alpha_vec):
 	return cost
 
 
-alpha0, alpha1 = 0.5, -0.5
-alpha_vec = alpha0, alpha1
 
-rocketTrajectory = RocketTrajectory( t)
-cost = generate_cost( alpha_vec)
+if __name__ == "__main__":
 
-cost, location = gradient_descent( generate_cost, alpha_vec)
-
-print('Final Cost: ', cost)
-print('Parameters: ', location)
-
-rocketTrajectory.plot()
+	tf = 10				# seconds
+	dt = 0.1			# seconds
+	t = np.arange(0, tf, dt)
+	
+	# Trajectory Optimization using Gradient Descent 
+	alpha0, alpha1 = 0.5, -0.5
+	alpha_vec = alpha0, alpha1
+	
+	rocketTrajectory = RocketTrajectory( t)
+	cost = generate_cost( alpha_vec)
+	
+	cost, location = gradient_descent( generate_cost, alpha_vec)
+	
+	print('Final Cost: ', cost)
+	print('Parameters: ', location)
+	
+	rocketTrajectory.plot()
 
 
 

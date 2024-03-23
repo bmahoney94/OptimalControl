@@ -52,9 +52,7 @@ def Quad( f, t):
 
 def gradient_descent( F, x):
 	""" Computes the minimum of the function 'F' and returns its value and location
-		given an initial guess at the location of the min.
-
-	"""
+		given an initial guess at the location of the min. """
 	
 	epsilon = 0.5		# Arbitrary atm. Try to compute it somehow! 
 	x_list = [x]
@@ -67,8 +65,7 @@ def gradient_descent( F, x):
 		# Function of epsilon.  To be passed to newton1D.	
 		G =	lambda eps: F( x - eps * gradient( F, x) )
 
-		print('blah:' + str( G( 0)) )
-	
+		print('Eval G: :' + str( G( 0)) )
 
 		x = x - epsilon * grad   
 		x_list.append(x)
@@ -98,15 +95,12 @@ def get_dxx( F, x):
 
 	return result		
 
+
 def newton1D( F, x):
 	"""  Given a function F and an initial guess x, this function will find the
-			local optima of the function.
-
-		 This is a Newton-Raphson optimization procedure, not a root finder!
+			local optima of the function. This is a Newton-Raphson optimization 
+			procedure, not a root finder!
 	"""
-	
-		
-	
 	x_list = [x]
 	for iteration in range( 0, 10):	
 		x = x - deriv1D( F, x) / get_dxx( F, x)	
@@ -118,9 +112,11 @@ def newton1D( F, x):
 
 	return x, F(x)
 
+
 def deriv1D( F, x):
+	""" This function computes the first derivative of F with respect to 'x' by performing
+		repeated finite difference approximations. """
 	#	h = 0.01
-	
 	h_list = [ (0.5)**n for n in range(1,10)]
 	
 	deriv_list = []
@@ -176,9 +172,6 @@ def gradient( F, x):
 	return grad
 
 
-
-
-
 def isConverged( current, previous):
 	""" Returns a boolean value to determine if two vectors(successive estimates, typically)
 		are within a specified tolerance of one another.  This helps clarify the logic in 
@@ -190,8 +183,6 @@ def isConverged( current, previous):
 	
 	return np.linalg.norm( deviation) < tolerance
 	
-
-##  IF: main ##
 
 if  __name__ == '__main__':
 	print('This is a library.  Run tests from the util_test.py file.')
