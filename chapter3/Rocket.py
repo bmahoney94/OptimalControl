@@ -20,11 +20,23 @@ import matplotlib.pyplot as plt
 #
 # 
 
-m_0 = 20			# slugs
-Thrust = 10**5			# lbf
-Drag = 0				# lbf
+# CONSTANTS
 g = 32				# ft/sec^2
-Lift = 0				# lbf
+
+
+# Sub-expression evaluators
+def massFunc():
+ return  20			# slugs
+
+def thrustFunc():
+	return 10**5			# lbf
+
+def dragFunc():
+	return 0				# lbf
+
+
+def liftFunc():
+	return 0				# lbf
 
 
 def RHS(t, x, u):		
@@ -40,9 +52,11 @@ def RHS(t, x, u):
 	alpha = u
 	
 	f = np.zeros(len(x))
-	# These might be easier to look at if they were defined in functions.
-	f[0] = (1/(m_0))*(Thrust*math.cos(alpha) - Drag - g * math.sin(x[1]))
-	f[1] = 1/(m_0*x[0])*(Thrust*math.sin(alpha)+Lift-g*math.cos(x[1]))
+	# Wind-frame x direction
+	f[0] = (1/(massFunc())) * (thrustFunc()*math.cos(alpha) - dragFunc() - g*math.sin(x[1]))
+	# Wind-frame y direction
+	f[1] = 1/(massFunc()*x[0]) * (thrustFunc()*math.sin(alpha)+liftFunc()-g*math.cos(x[1]))
+	# ...? Can't remember.
 	f[2] = x[0] * math.sin(x[1])
 	return f
 
@@ -87,7 +101,7 @@ class RocketTrajectory:
 		self.alpha = np.radians(alpha)
 
 
-	def integrate(self):
+	def shoot(self):
 		"""	Updates the values of the state vector for each instant in time.  Using an RK4
 			integration scheme. 
 		"""

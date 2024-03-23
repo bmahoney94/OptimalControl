@@ -25,12 +25,12 @@ import matplotlib.pyplot as plt
 from OCPUtil import *
 from Rocket import *
 
-def alpha( alpha0, alpha1):
+def alphaFunc( alpha0, alpha1):
 	return alpha0 + alpha1 * t
 
-def generate_cost( alpha_vec):
-	rocketTrajectory.setAlpha( alpha( alpha_vec[0], alpha_vec[1]) )
-	rocketTrajectory.integrate()
+def objFunc( alpha_vec):
+	rocketTrajectory.setAlpha( alphaFunc( alpha_vec[0], alpha_vec[1]) )
+	rocketTrajectory.shoot()
 	cost = rocketTrajectory.getCost()
 	return cost
 
@@ -47,9 +47,9 @@ if __name__ == "__main__":
 	alpha_vec = alpha0, alpha1
 	
 	rocketTrajectory = RocketTrajectory( t)
-	cost = generate_cost( alpha_vec)
+	cost = objFunc( alpha_vec)
 	
-	cost, location = gradient_descent( generate_cost, alpha_vec)
+	cost, location = gradient_descent( objFunc, alpha_vec)
 	
 	print('Final Cost: ', cost)
 	print('Parameters: ', location)
