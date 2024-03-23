@@ -22,7 +22,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-from OCPutil import *
+from OCPUtil import *
 from Rocket import *
 
 def alpha( alpha0, alpha1):

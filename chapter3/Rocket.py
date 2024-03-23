@@ -4,7 +4,7 @@
 """
 
 import numpy as np
-from util import *
+from OCPUtil import *
 import math
 import matplotlib.pyplot as plt
 
@@ -20,6 +20,31 @@ import matplotlib.pyplot as plt
 #
 # 
 
+m_0 = 20			# slugs
+Thrust = 10**5			# lbf
+Drag = 0				# lbf
+g = 32				# ft/sec^2
+Lift = 0				# lbf
+
+
+def RHS(t, x, u):		
+	""" Computes the right hand side of the differential equation.
+		
+		At the moment, the mass is remaining constant.
+
+		Therefore:
+			x is a state vector at a single instant
+			t is the time at that instant
+			u is the control scalar alpha at the present instant
+	"""
+	alpha = u
+	
+	f = np.zeros(len(x))
+	# These might be easier to look at if they were defined in functions.
+	f[0] = (1/(m_0))*(Thrust*math.cos(alpha) - Drag - g * math.sin(x[1]))
+	f[1] = 1/(m_0*x[0])*(Thrust*math.sin(alpha)+Lift-g*math.cos(x[1]))
+	f[2] = x[0] * math.sin(x[1])
+	return f
 
 
 # Note: This is becoming a god class.
@@ -33,18 +58,9 @@ class RocketTrajectory:
 	"""
 	def __init__(self, t):
 		self.time = t
-		
-		self.Thrust = 10**5			# lbf
-		self.Lift = 0				# lbf
-		self.Drag = 0				# lbf
-		self.g = 32				# ft/sec^2
-		
 		self.mdot = 0			# Slugs/sec
-		
 		nt = len(t)
-		
 		self.x = np.zeros((3,nt)) 
-
 		self.setIC()
 		self.set_FinalConditions()
 
@@ -53,7 +69,6 @@ class RocketTrajectory:
 		self.v_0 = 100			# ft/s
 		self.gamma_0 = np.pi/2	# rad
 		self.h_0 = 0			# ft
-		self.m_0 = 20			# slugs
 
 		self.x[:,0] = self.v_0, self.gamma_0, self.h_0
 
@@ -71,25 +86,6 @@ class RocketTrajectory:
 		
 		self.alpha = np.radians(alpha)
 
-	def RHS(self, t, x, u):		
-		""" Computes the right hand side of the differential equation.
-			
-			At the moment, the mass is remaining constant.
-
-			Therefore:
-				x is a state vector at a single instant
-				t is the time at that instant
-				u is the control scalar alpha at the present instant
-
-		"""
-		alpha = u
-		
-		f = np.zeros(len(x))
-		# These might be easier to look at if they were defined in functions.
-		f[0] = (1/(self.m_0))*(self.Thrust*math.cos(alpha) - self.Drag - self.g * math.sin(x[1]))
-		f[1] = 1/(self.m_0*x[0])*(self.Thrust*math.sin(alpha)+self.Lift-self.g*math.cos(x[1]))
-		f[2] = x[0] * math.sin(x[1])
-		return f
 
 	def integrate(self):
 		"""	Updates the values of the state vector for each instant in time.  Using an RK4
@@ -100,7 +96,7 @@ class RocketTrajectory:
 		for i, timestep in enumerate(self.time):
 			if self.x[0,i] == self.x[0,-1]:
 				break
-			self.x[:,i+1] = RK4(self.RHS, timestep, dt, self.x[:,i], self.alpha[i])
+			self.x[:,i+1] = RK4( RHS, timestep, dt, self.x[:,i], self.alpha[i])
 			# print(self.x[:,i])
 
 	def getCost(self):
@@ -116,10 +112,12 @@ class RocketTrajectory:
 
 			
 	def plot( self):
-#		fig, ax = plt.subplot(31)
+		fig, ax = plt.subplots(3)
 
-		plt.plot( self.time, self.x[0])
-#		plt.plot( self.time, self.x[1])
-#		plt.plot( self.time, self.x[2])
+		ax[0].plot( self.time, self.x[0])
+		ax[1].plot( self.time, self.x[1])
+		ax[2].plot( self.time, self.x[2])
 		
 		plt.show()
+
+
