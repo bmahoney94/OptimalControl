@@ -67,72 +67,70 @@ def simulate_RK4():
 	return x_RK4
 
 def generate_plots( x_RK4):
-	# Plot State Transition solution
-	fig, axes = plt.subplots( 3,2)
-	axes[0,0].plot( t, x_stm[0,:], label='x1')
-	axes[0,0].plot( t, x_stm[1,:], label='x2')
-	axes[0,0].legend()
-	axes[0,0].set_title('Evolution by State Transition')
-	axes[0,0].grid(True)
-	
-	# Plot RK4
-#	axes[0,1].subplot(3, 2, 2)
-	axes[0,1].plot( t, x_RK4[0,:], label='x1')
-	axes[0,1].plot( t, x_RK4[1,:], label='x2')
-	axes[0,1].legend()
-	axes[0,1].set_title('Evolution by 4th order Runge Kutta')
-	axes[0,1].grid(True)
-	
-	# Overlay plots
-	
-	axes[1,0].plot( t, x_stm[0,:], label='State Transition')
-	axes[1,0].plot( t, x_RK4[0,:], label='4th Order Runge Kutta')
-	axes[1,0].legend()
-	axes[1,0].set_title('X1 Overlay')
-	axes[1,0].grid(True)
-	
-	
-	axes[1,1].plot( t, x_stm[1,:], label='State Transition')
-	axes[1,1].plot( t, x_RK4[1,:], label='4th Order Runge Kutta')
-	axes[1,1].legend()
-	axes[1,1].set_title('X2 Overlay')
-	axes[1,1].grid(True)
-	
-	#  Error Plots
-	err1 = x_RK4[0,:] - x_stm[0,:]
-	err2 = x_RK4[1,:] - x_stm[1,:]
-	
-	axes[2,0].plot( t, err1, label='x1')
-	axes[2,0].plot( t, err2, label='x2')
-	axes[2,0].legend()
-	axes[2,0].set_title('Absolute Error')
-	axes[2,0].grid(True)
-
-	plt.show()
+    # Plot State Transition solution
+    fig, axes = plt.subplots( 3,2)
+    axes[0,0].plot( t, x_stm[0,:], label='x1')
+    axes[0,0].plot( t, x_stm[1,:], label='x2')
+    axes[0,0].legend()
+    axes[0,0].set_title('Evolution by State Transition')
+    axes[0,0].grid(True)
+    
+    # Plot RK4
+    axes[0,1].plot( t, x_RK4[0,:], label='x1')
+    axes[0,1].plot( t, x_RK4[1,:], label='x2')
+    axes[0,1].legend()
+    axes[0,1].set_title('Evolution by 4th order Runge Kutta')
+    axes[0,1].grid(True)
+    
+    # Overlay plots
+    
+    axes[1,0].plot( t, x_stm[0,:], label='State Transition')
+    axes[1,0].plot( t, x_RK4[0,:], label='4th Order Runge Kutta')
+    axes[1,0].legend()
+    axes[1,0].set_title('X1 Overlay')
+    axes[1,0].grid(True)
+    
+    
+    axes[1,1].plot( t, x_stm[1,:], label='State Transition')
+    axes[1,1].plot( t, x_RK4[1,:], label='4th Order Runge Kutta')
+    axes[1,1].legend()
+    axes[1,1].set_title('X2 Overlay')
+    axes[1,1].grid(True)
+    
+    #  Error Plots
+    err1 = x_RK4[0,:] - x_stm[0,:]
+    err2 = x_RK4[1,:] - x_stm[1,:]
+    
+    axes[2,0].plot( t, err1, label='x1')
+    axes[2,0].plot( t, err2, label='x2')
+    axes[2,0].legend()
+    axes[2,0].set_title('Absolute Error')
+    axes[2,0].grid(True)
+    
+    plt.show()
 
 
 
 if __name__ == "__main__":
-
-	##### Time discretization
-	dt = 0.1
-	t = np.arange(0,20,dt)
-	nt = len(t)
-	
-	
-	x_0 = np.zeros((2,1))					# Initial conditions
-	
-	##### Control history
-	u = np.zeros(t.shape)
-	
-	i=0
-	for timestep in t:
-		if timestep < 10:
-			u[i] = 1
-		i = i + 1
-	
-	
-	x_stm = simulate_state_transition()
-	x_RK4 = simulate_RK4()
-
-generate_plots( x_RK4)
+    ##### Time discretization
+    dt = 0.1
+    t = np.arange(0,20,dt)
+    nt = len(t)
+    
+    
+    x_0 = np.zeros((2,1))					# Initial conditions
+    
+    ##### Control history
+    u = np.zeros(t.shape)
+    
+    i=0
+    for timestep in t:
+    	if timestep < 10:
+    		u[i] = 1
+    	i = i + 1
+    
+    
+    x_stm = simulate_state_transition()
+    x_RK4 = simulate_RK4()
+    
+    generate_plots( x_RK4)
