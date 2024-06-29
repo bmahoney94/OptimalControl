@@ -5,10 +5,9 @@
 import numpy as np
 from OCPUtil import *
 
-# TODO: Incorporate the unittest module and start making assertions
 ## Tests ###
 
-def gradient_test():
+def test_gradient():
 	""" The gradient of F at (0,0) should be:  (-4. 6)
 		
 		Passing the test means the yielded result is 'close'.
@@ -25,7 +24,7 @@ def gradient_test():
 	print()	
 
 
-def gradient_descent_test():
+def test_gradient_descent():
 	""" This tests the basic functionality of the gradient_descent function. """
 	#TODO: This function's code is being copied elsewhere.  Consider breaking it out as a common
 	#		test 'fixture' of sorts. 
@@ -49,7 +48,7 @@ def gradient_descent_test():
 
 
 
-def newton1D_test():
+def test_newton1D():
 
 	
 	def F(x):
@@ -71,7 +70,7 @@ def newton1D_test():
 		
 	print()
 
-def deriv1D_test():
+def test_deriv1D():
 	def F(x):
 		return x**2 + 5*x + 1
 
@@ -92,7 +91,7 @@ def deriv1D_test():
 
 
 
-def quad_test():
+def test_quad():
 	t = np.linspace(0,10)
 	f = np.ones(len(t))
 
@@ -103,10 +102,9 @@ def quad_test():
 ##  IF: main ##
 
 if  __name__ == '__main__':
-	import sys
 	
-	quad_test()
-	gradient_test()
-	gradient_descent_test()
-	deriv1D_test()
-	newton1D_test()
+	test_quad()
+	test_gradient()
+	test_gradient_descent()
+	test_deriv1D()
+	test_newton1D()
