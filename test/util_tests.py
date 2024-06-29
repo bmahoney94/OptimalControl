@@ -7,14 +7,21 @@ from OCPUtil import *
 import pytest
 ## Tests ###
 
+def F( x):
+    """ Takes two scalar inputs (x, y) and returns a scalar output.
+    	
+    	The min of the function F(x, y) = (x-2)**2 + (y+3)**2 + 5 occurs at the location of
+    	its vertex: (x,y) = (2, -3).
+    """
+    F = (x[0]-2)**2 + (x[1]+3)**2 + 5
+    return F
+
 def test_gradient():
     """ The gradient of F at (0,0) should be:  (-4. 6)
     	
     	Passing the test means the yielded result is 'close'.
     
     """
-    def F( x):
-        return (x[0] - 2)**2 + (x[1] + 3)**2 + 5
     x = [0,0]
 
     print('\nTesting Gradient Function')
@@ -22,23 +29,12 @@ def test_gradient():
 
     print( 'The gradient of F at ' + str(x) + ' is ' + str(grad) )
     print()	
-    assert( grad[0] == pytest.approx( -4.0, abs=1e-3))
-    assert( grad[1] == pytest.approx( 6.0, 1e-3))
+    assert( grad[0] == pytest.approx( -4.0, abs=1e-4))
+    assert( grad[1] == pytest.approx( 6.0, abs=1e-4))
 
 
 def test_gradient_descent():
 	""" This tests the basic functionality of the gradient_descent function. """
-	#TODO: This function's code is being copied elsewhere.  Consider breaking it out as a common
-	#		test 'fixture' of sorts. 
-	def F( x): 
-		""" Takes two scalar inputs (x, y) and returns a scalar output.
-			
-			The min of the function F(x, y) = (x-2)**2 + (y+3)**2 + 5 occurs at the location of
-			its vertex: (x,y) = (2, -3).
-		"""
-		F = (x[0]-2)**2 + (x[1]+3)**2 + 5
-		return F
-
 	initial_guess = np.array([ 0, 0])
 	
 	print('Testing the gradient_descent function')	
@@ -51,8 +47,6 @@ def test_gradient_descent():
 
 
 def test_newton1D():
-
-	
 	def F(x):
 		return x**2 + 5*x + 1
 
