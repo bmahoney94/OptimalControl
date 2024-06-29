@@ -22,7 +22,8 @@ def test_gradient():
 
     print( 'The gradient of F at ' + str(x) + ' is ' + str(grad) )
     print()	
-    pytest.approx( grad[0], -4.0, 0.1)
+    assert( grad[0] == pytest.approx( -4.0, abs=1e-3))
+    assert( grad[1] == pytest.approx( 6.0, 1e-3))
 
 
 def test_gradient_descent():
