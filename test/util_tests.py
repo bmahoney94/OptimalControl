@@ -4,24 +4,25 @@
 #from util import *
 import numpy as np
 from OCPUtil import *
-
+import pytest
 ## Tests ###
 
 def test_gradient():
-	""" The gradient of F at (0,0) should be:  (-4. 6)
-		
-		Passing the test means the yielded result is 'close'.
+    """ The gradient of F at (0,0) should be:  (-4. 6)
+    	
+    	Passing the test means the yielded result is 'close'.
+    
+    """
+    def F( x):
+        return (x[0] - 2)**2 + (x[1] + 3)**2 + 5
+    x = [0,0]
 
-	"""
-	def F( x):
-		return (x[0] - 2)**2 + (x[1] + 3)**2 + 5
-	x = [0,0]
+    print('\nTesting Gradient Function')
+    grad = gradient( F, x)
 
-	print('\nTesting Gradient Function')
-	grad = gradient( F, x)
-
-	print( 'The gradient of F at ' + str(x) + ' is ' + str(grad) )
-	print()	
+    print( 'The gradient of F at ' + str(x) + ' is ' + str(grad) )
+    print()	
+    pytest.approx( grad[0], -4.0, 0.1)
 
 
 def test_gradient_descent():
