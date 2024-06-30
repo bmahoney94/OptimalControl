@@ -54,7 +54,7 @@ if __name__ == "__main__":
 	print('Final Cost: ', cost)
 	print('Parameters: ', location)
 	
-	rocketTrajectory.plot()
+	plot( t, rocketTrajectory.x)
 
 
 

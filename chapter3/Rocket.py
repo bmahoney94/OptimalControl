@@ -125,13 +125,11 @@ class RocketTrajectory:
 		return J
 
 			
-	def plot( self):
-		fig, ax = plt.subplots(3)
+def plot( time, x):
+	fig, ax = plt.subplots(3)
 
-		ax[0].plot( self.time, self.x[0])
-		ax[1].plot( self.time, self.x[1])
-		ax[2].plot( self.time, self.x[2])
-		
-		plt.show()
-
-
+	ax[0].plot( time, x[0])
+	ax[1].plot( time, x[1])
+	ax[2].plot( time, x[2])
+	
+	plt.show()
