@@ -126,10 +126,13 @@ class RocketTrajectory:
 
 			
 def plot( time, x):
-	fig, ax = plt.subplots(3)
-
-	ax[0].plot( time, x[0])
-	ax[1].plot( time, x[1])
-	ax[2].plot( time, x[2])
-	
-	plt.show()
+    fig, ax = plt.subplots(3)
+    
+    ax[0].plot( time, x[0])
+    ax[0].set_ylabel( 'velocity')
+    ax[1].plot( time, x[1])
+    ax[1].set_ylabel( 'flight path angle')
+    ax[2].plot( time, x[2])
+    ax[2].set_ylabel( 'Altitude')
+    plt.tight_layout() 
+    plt.show()
