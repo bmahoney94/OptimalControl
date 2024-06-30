@@ -32,7 +32,7 @@ def RHS( t, x, u):
 	# debug if you get it wrong.  Ambiguous (2,) arrays don't have that problem.
 	return f
 
-def simulate_state_transition():
+def simulate_state_transition() -> np.ndarray:
 	#####  State transition method
 	Phi = np.array([[0.95123, 0.0942],[0, 0.93239]])		# Approximate
 	Gamma = np.array([0.0047714, 0.096586])             	# Approximate
@@ -50,7 +50,7 @@ def simulate_state_transition():
 	return x_stm
 
 
-def simulate_RK4():
+def simulate_RK4() -> np.ndarray:
 	# Initial condtion
 	x_RK4 = np.zeros(( 2, nt))
 	x_RK4[ :, 0] = x_0[ :, 0]
@@ -83,7 +83,6 @@ def generate_plots( x_RK4):
     axes[0,1].grid(True)
     
     # Overlay plots
-    
     axes[1,0].plot( t, x_stm[0,:], label='State Transition')
     axes[1,0].plot( t, x_RK4[0,:], label='4th Order Runge Kutta')
     axes[1,0].legend()
@@ -106,8 +105,8 @@ def generate_plots( x_RK4):
     axes[2,0].legend()
     axes[2,0].set_title('Absolute Error')
     axes[2,0].grid(True)
-    
-    plt.show()
+    return fig 
+    #plt.show()
 
 
 
@@ -133,4 +132,5 @@ if __name__ == "__main__":
     x_stm = simulate_state_transition()
     x_RK4 = simulate_RK4()
     
-    generate_plots( x_RK4)
+    fig = generate_plots( x_RK4)
+    plt.show()
