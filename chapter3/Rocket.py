@@ -60,16 +60,21 @@ def RHS(t, x, u):
 	f[2] = x[0] * math.sin(x[1])
 	return f
 
+
 def getIC():
 	"""  Set the initial conditions """
 	v_0 = 100			# ft/s
 	gamma_0 = np.pi/2	# rad
-	h_0 = 0			# ft
+	h_0 = 0		    	# ft
 	return np.array( [v_0, gamma_0, h_0])
 
 
-# Note: This is becoming a god class.
-# Get some tests in place.  Then break some stuff apart into separate classes.
+def set_FinalConditions():
+	v_d = 0					# ft/s  NOTE: Should be ignored based on Q
+	gamma_d = np.pi/2		# rad
+	h_d = 0					# ft	NOTE: Should be ignored based on Q	
+	return np.array( [ v_d, gamma_d, h_d])
+
 
 class RocketTrajectory:
 	""" Defines a model for a rocket's flight dynamics.
@@ -83,14 +88,7 @@ class RocketTrajectory:
 		nt = len(t)
 		self.x = np.zeros((3,nt)) 
 		self.x[:,0] = getIC()
-		self.set_FinalConditions()
-
-	def set_FinalConditions(self):
-		v_d = 0					# ft/s  NOTE: Should be ignored based on Q
-		gamma_d = np.pi/2			# rad
-		h_d = 0					# ft	NOTE: Should be ignored based on Q
-		
-		self.x_d = np.array( [ v_d, gamma_d, h_d])
+		self.x_d = set_FinalConditions()
 
 	def setAlpha(self, alpha):
 		""" Input: a time history of the control variable alpha in degrees.		"""
@@ -124,8 +122,9 @@ class RocketTrajectory:
 		return J
 
 			
-def plot( time, x):
-    fig, ax = plt.subplots(3)
+def plot( time, traj):
+    x = traj.x
+    fig, ax = plt.subplots(4)
     
     ax[0].plot( time, x[0])
     ax[0].set_ylabel( 'velocity')
@@ -133,5 +132,8 @@ def plot( time, x):
     ax[1].set_ylabel( 'flight path angle')
     ax[2].plot( time, x[2])
     ax[2].set_ylabel( 'Altitude')
+    ax[3].plot( time, traj.alpha)
+    ax[3].set_ylabel( 'Amgle of Attack')
     plt.tight_layout() 
     plt.show()
+
