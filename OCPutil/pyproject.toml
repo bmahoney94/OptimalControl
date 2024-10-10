@@ -1,4 +1,8 @@
 [build-system]
-requires = ["setuptools >= 61.0", "numpy", "matplotlib"]
+requires = ["setuptools >= 61.0"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name='OCPUtil'
+dependencies = ["numpy", "matplotlib", "scipy"]
 version = "0.0.1"
