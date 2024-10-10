@@ -55,7 +55,7 @@ def gradient_descent( F, x):
     """ Computes the minimum of the function 'F' and returns its value and location
         given an initial guess at the location of the min. """
     
-    alpha = 1.0       # Arbitrary atm. Try to compute it somehow! 
+    alpha = 1.0       # Arbitrary atm. Generally, should be set via LineSearch method.
     x_list = [x]
 
     print( "{:<20} {:<20}".format('obj', '|grad|'))
