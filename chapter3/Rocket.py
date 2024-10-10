@@ -60,6 +60,13 @@ def RHS(t, x, u):
 	f[2] = x[0] * math.sin(x[1])
 	return f
 
+def getIC():
+	"""  Set the initial conditions """
+	v_0 = 100			# ft/s
+	gamma_0 = np.pi/2	# rad
+	h_0 = 0			# ft
+	return np.array( [v_0, gamma_0, h_0])
+
 
 # Note: This is becoming a god class.
 # Get some tests in place.  Then break some stuff apart into separate classes.
@@ -75,16 +82,8 @@ class RocketTrajectory:
 		self.mdot = 0			# Slugs/sec
 		nt = len(t)
 		self.x = np.zeros((3,nt)) 
-		self.setIC()
+		self.x[:,0] = getIC()
 		self.set_FinalConditions()
-
-	def setIC(self):
-		"""  Set the initial conditions """
-		self.v_0 = 100			# ft/s
-		self.gamma_0 = np.pi/2	# rad
-		self.h_0 = 0			# ft
-
-		self.x[:,0] = self.v_0, self.gamma_0, self.h_0
 
 	def set_FinalConditions(self):
 		v_d = 0					# ft/s  NOTE: Should be ignored based on Q
