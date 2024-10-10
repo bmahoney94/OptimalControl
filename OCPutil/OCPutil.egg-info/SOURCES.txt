@@ -1,6 +1,0 @@
-OCPUtil.py
-setup.py
-OCPutil.egg-info/PKG-INFO
-OCPutil.egg-info/SOURCES.txt
-OCPutil.egg-info/dependency_links.txt
-OCPutil.egg-info/top_level.txt
