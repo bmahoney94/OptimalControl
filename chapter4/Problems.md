@@ -2,7 +2,7 @@
 
 #### Section 4.1 -- Least-Squares Estimates of Constant Vectors
 
-    1. Using a least-suqares algorithm, fit quadratic and cubic polunomials to the following time series:
+    1. Using a least-squares algorithm, fit quadratic and cubic polynomials to the following time series:
         Z: 1, 27, 33, 45, 12, 16, 83, 67, 54,39,23,6,14,15,19,31,37,44,56,60
         Compute the mean-square error in both cases, and plot the results.
         54,39,23,6,14,15,19,31,37,44,56,60
@@ -10,7 +10,7 @@
 
     2. Repeat Problem 1, assuming the first data point is 10 times better than the last and that intermediate points are weighted in proportion to their positions in sequences.
 
-    3. One more piece of data is to be added to the sequence in Porblme 1.
+    3. One more piece of data is to be added to the sequence in Problem 1.
         Assuming equal weighting of all points, how would a new reading of 25 affect the quadratic curve fit?
         Use a recursive least-squares estimator to find the answer.
 
