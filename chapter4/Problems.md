@@ -18,8 +18,7 @@
 
     5. The vector **x** is related to the vector **y** by the following equation:
             
-            $$`
-            \begin{matrix}
+            $$\begin{matrix}
                 y_1 \\
                 y_2
             \end{matrix}
@@ -30,8 +29,7 @@
             \begin{matrix}
                 x_1 \\
                 x_2
-            \end{matrix}   
-            `$$
+            \end{matrix}  $$ 
         Given the following noisy measurements (**z** = **y** + **n**), what is the least squares estimate of **x**?
             z_1 = 0,1,7,8,5,7,9,10,6,4
             z_2 = 10,7,4,5,5,3,0,2,2,4
