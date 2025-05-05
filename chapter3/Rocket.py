@@ -133,7 +133,7 @@ def plot( time, traj):
     ax[2].plot( time, x[2])
     ax[2].set_ylabel( 'Altitude')
     ax[3].plot( time, traj.alpha)
-    ax[3].set_ylabel( 'Amgle of Attack')
+    ax[3].set_ylabel( 'Angle of Attack')
     plt.tight_layout() 
     plt.show()
 
